@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ZzrrtBackendApplication {
-
+public class ZzrrtApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(ZzrrtBackendApplication.class, args);
+		SpringApplication.run(ZzrrtApplication.class, args);
 	}
 
 }

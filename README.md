@@ -53,15 +53,20 @@ and enables streamers and viewers to interact and vote through live chat.
 3. **Ranking System**
    - Popular and recent matches are displayed based on user activity.
 
-[//]: # '## 📂 Project Structure'
-[//]: #
-[//]: # '```plaintext'
-[//]: # 'ZZRRT/'
-[//]: # '├── backend/'
-[//]: # '│   ├── src/'
-[//]: # '│   └── Dockerfile.backend'
-[//]: # '├── frontend/'
-[//]: # '│   ├── pages/'
-[//]: # '│   └── Dockerfile.frontend'
-[//]: # '└── docker-compose.yml'
-[//]: # '```'
+## 🏃 How can I run ZZRRT on my computer?
+
+1. **Clone this repo into your local**
+
+```bash
+$ git clone https://github.com/kcdevdes/zzrrt.git
+```
+
+2. **Run docker-compose**
+
+```bash
+$ docker compose up --build
+```
+
+Make sure you need to run 3 containers: `frontend-1`, `backend-1`, `mysql-container`.
+
+3. **Go to [http://localhost:3000](http://localhost:3000)**

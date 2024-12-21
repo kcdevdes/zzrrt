@@ -22,3 +22,6 @@ out/
 
 ### Credential Files ###
 /credentials/
+
+### MySQL Dev ###
+mysql-data/

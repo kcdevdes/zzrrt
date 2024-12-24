@@ -21,7 +21,7 @@ out/
 .DS_Store
 
 ### Credential Files ###
-/credentials/
+credentials/
 
 ### MySQL Dev ###
 mysql-data/

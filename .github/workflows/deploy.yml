@@ -1,0 +1,40 @@
+name: Deploy Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "${{ secrets.FRONTEND_EC2_IP }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -H "${{ secrets.BACKEND_EC2_IP }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy Backend
+        run: |
+          scp -o StrictHostKeyChecking=no -r ./ ec2-user@${{ secrets.BACKEND_EC2_IP }}:/home/ubuntu/project
+          ssh ec2-user@${{ secrets.BACKEND_EC2_IP }} << 'EOF'
+          cd /home/ubuntu/project
+          docker-compose down
+          docker-compose up -d --build backend
+          EOF
+
+      - name: Deploy Frontend
+        run: |
+          scp -o StrictHostKeyChecking=no -r ./ ec2-user@${{ secrets.FRONTEND_EC2_IP }}:/home/ubuntu/project
+          ssh ec2-user@${{ secrets.FRONTEND_EC2_IP }} << 'EOF'
+          cd /home/ubuntu/project
+          docker-compose down
+          docker-compose up -d --build frontend
+          EOF

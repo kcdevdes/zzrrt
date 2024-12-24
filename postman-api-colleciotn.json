@@ -1,0 +1,525 @@
+{
+  "info": {
+    "name": "ZZRRT API Endpoints",
+    "description": "Postman collection for all API endpoints, grouped by feature.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"example@example.com\",\n  \"password\": \"securepassword\",\n  \"name\": \"John Doe\"\n}"
+            },
+            "url": {
+              "raw": "/v1/users/signup",
+              "path": ["v1", "users", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"example@example.com\",\n  \"password\": \"securepassword\"\n}"
+            },
+            "url": {
+              "raw": "/v1/users/login",
+              "path": ["v1", "users", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<JWT_TOKEN>\"\n}"
+            },
+            "url": {
+              "raw": "/v1/users/logout",
+              "path": ["v1", "users", "logout"]
+            }
+          }
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/users/me",
+              "path": ["v1", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "Update Me",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"password\": \"newpassword\"\n}"
+            },
+            "url": {
+              "raw": "/v1/users/me",
+              "path": ["v1", "users", "me"]
+            }
+          }
+        },
+        {
+          "name": "Delete Me",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"securepassword\"\n}"
+            },
+            "url": {
+              "raw": "/v1/users/me",
+              "path": ["v1", "users", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Matches",
+      "item": [
+        {
+          "name": "Create Match",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"4강 매치\",\n  \"description\": \"매치 설명\",\n  \"choices\": [\n    {\n      \"type\": \"image\",\n      \"title\": \"선택지 1\",\n      \"description\": \"jpeg 선택지\",\n      \"url\": \"https://s3.amazonaws.com/uploads/file1.jpeg\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "/v1/match",
+              "path": ["v1", "match"]
+            }
+          }
+        },
+        {
+          "name": "Get All Matches",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "/v1/match",
+              "path": ["v1", "match"]
+            }
+          }
+        },
+        {
+          "name": "Get Match",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "/v1/match/{id}",
+              "path": ["v1", "match", "{id}"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Match",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Match Title\",\n  \"description\": \"Updated Match Description\"\n}"
+            },
+            "url": {
+              "raw": "/v1/match/{id}",
+              "path": ["v1", "match", "{id}"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Match",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/match/{id}",
+              "path": ["v1", "match", "{id}"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "File Upload",
+      "item": [
+        {
+          "name": "Upload File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "/v1/match/upload",
+              "path": ["v1", "match", "upload"]
+            }
+          }
+        },
+        {
+          "name": "Delete File",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://s3.amazonaws.com/uploads/file1.jpeg\"\n}"
+            },
+            "url": {
+              "raw": "/v1/match/upload",
+              "path": ["v1", "match", "upload"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Choices",
+      "item": [
+        {
+          "name": "Add Choice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"image\",\n  \"title\": \"선택지 1\",\n  \"description\": \"jpeg 선택지\",\n  \"url\": \"https://s3.amazonaws.com/uploads/file1.jpeg\"\n}"
+            },
+            "url": {
+              "raw": "/v1/match/{id}/choices",
+              "path": ["v1", "match", "{id}", "choices"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Choice",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/match/{id}/choices/{cid}",
+              "path": ["v1", "match", "{id}", "choices", "{cid}"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                },
+                {
+                  "key": "cid",
+                  "value": "456"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Likes and Rankings",
+      "item": [
+        {
+          "name": "Like Match",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/match/{id}/like",
+              "path": ["v1", "match", "{id}", "like"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dislike Match",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/match/{id}/dislike",
+              "path": ["v1", "match", "{id}", "dislike"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Rankings",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"popular\",\n  \"limit\": 10\n}"
+            },
+            "url": {
+              "raw": "/v1/match/rankings",
+              "path": ["v1", "match", "rankings"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_ADMIN_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/admin/users",
+              "path": ["v1", "admin", "users"]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_ADMIN_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/admin/users/{id}",
+              "path": ["v1", "admin", "users", "{id}"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "456"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Match",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_ADMIN_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/admin/match/{id}",
+              "path": ["v1", "admin", "match", "{id}"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Choice",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <JWT_ADMIN_TOKEN>"
+              }
+            ],
+            "url": {
+              "raw": "/v1/admin/match/{id}/choices/{cid}",
+              "path": ["v1", "admin", "match", "{id}", "choices", "{cid}"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "123"
+                },
+                {
+                  "key": "cid",
+                  "value": "456"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

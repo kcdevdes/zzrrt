@@ -20,8 +20,8 @@ jobs:
 
       - name: Deploy Backend
         run: |
-          sshpass -p "${{ secrets.EC2_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./ ubuntu@${{ secrets.BACKEND_EC2_IP }}:/home/ubuntu/project
-          sshpass -p "${{ secrets.EC2_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.BACKEND_EC2_IP }} << 'EOF'
+          sshpass -p "${{ secrets.EC2_PASSWORD }}" scp -o StrictHostKeyChecking=no -o PreferredAuthentications=password -r ./ ubuntu@${{ secrets.BACKEND_EC2_IP }}:/home/ubuntu/project
+          sshpass -p "${{ secrets.EC2_PASSWORD }}" ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password ubuntu@${{ secrets.BACKEND_EC2_IP }} << 'EOF'
           cd /home/ubuntu/project
           docker compose down
           docker compose up -d --build backend
@@ -29,8 +29,8 @@ jobs:
 
       - name: Deploy Frontend
         run: |
-          sshpass -p "${{ secrets.EC2_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./ ubuntu@${{ secrets.FRONTEND_EC2_IP }}:/home/ubuntu/project
-          sshpass -p "${{ secrets.EC2_PASSWORD }}" ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.FRONTEND_EC2_IP }} << 'EOF'
+          sshpass -p "${{ secrets.EC2_PASSWORD }}" scp -o StrictHostKeyChecking=no -o PreferredAuthentications=password -r ./ ubuntu@${{ secrets.FRONTEND_EC2_IP }}:/home/ubuntu/project
+          sshpass -p "${{ secrets.EC2_PASSWORD }}" ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password ubuntu@${{ secrets.FRONTEND_EC2_IP }} << 'EOF'
           cd /home/ubuntu/project
           docker compose down
           docker compose up -d --build frontend

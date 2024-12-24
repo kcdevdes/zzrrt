@@ -21,13 +21,22 @@ jobs:
           eval $(ssh-agent)
           ssh-add ~/.ssh/id_rsa
 
+      - name: Transfer Files to Backend
+        run: |
+          scp -o StrictHostKeyChecking=no -r ./ ubuntu@${{ secrets.BACKEND_EC2_IP }}:/home/ubuntu/project
+
       - name: Deploy Backend
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.BACKEND_EC2_IP }} << 'EOF'
           cd /home/ubuntu/project
+          ./gradlew clean bootJar
           docker-compose down
           docker-compose up -d --build backend
           EOF
+
+      - name: Transfer Files to Frontend
+        run: |
+          scp -o StrictHostKeyChecking=no -r ./ ubuntu@${{ secrets.FRONTEND_EC2_IP }}:/home/ubuntu/project
 
       - name: Deploy Frontend
         run: |

@@ -19,9 +19,9 @@ jobs:
       - name: Upload Project to EC2
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.TEST_EC2_HOST }}
           username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           source: './' # 로컬 Github Actions 워크스페이스 전체
           target: '/home/ubuntu/zzrrt' # EC2에 저장될 경로
 

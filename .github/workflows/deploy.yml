@@ -33,6 +33,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/${{ secrets.EC2_USERNAME }}/zzrrt
+            cd /home/ubuntu/zzrrt
             docker-compose down
             docker-compose up -d frontend

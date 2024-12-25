@@ -1,20 +1,20 @@
+version: '3.8'
+
 services:
-  # Database service based on MySQL
+  # Database service based on PostgreSQL
   db:
-    image: mysql:8
-    container_name: mysql-container
+    image: postgres:15
+    container_name: postgres-container
     ports:
-      - '3306:3306'
+      - '5432:5432'
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      POSTGRES_DB: mydb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test:
-        ['CMD-SHELL', 'mysqladmin ping -h localhost -u root -proot || exit 1']
+      test: ['CMD-SHELL', 'pg_isready -U user || exit 1']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -28,12 +28,9 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mydb
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-    depends_on:
-      db:
-        condition: service_healthy
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mydb
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
 
   # Frontend service based on Next.js
   frontend:
@@ -43,5 +40,3 @@ services:
       - '3000:3000'
     volumes:
       - ./frontend:/app
-    depends_on:
-      - backend

@@ -1,4 +1,4 @@
-name: Deploy Project
+name: CI/CD Pipeline
 
 on:
   push:
@@ -10,38 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          eval $(ssh-agent)
-          ssh-add ~/.ssh/id_rsa
-
-      - name: Transfer Files to Backend
-        run: |
-          scp -o StrictHostKeyChecking=no -r ./ ubuntu@${{ secrets.BACKEND_EC2_IP }}:/home/ubuntu/project
-
-      - name: Deploy Backend
-        run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.BACKEND_EC2_IP }} << 'EOF'
-          cd /home/ubuntu/project
-          ./gradlew clean bootJar
-          docker-compose down
-          docker-compose up -d --build backend
-          EOF
-
-      - name: Transfer Files to Frontend
-        run: |
-          scp -o StrictHostKeyChecking=no -r ./ ubuntu@${{ secrets.FRONTEND_EC2_IP }}:/home/ubuntu/project
-
-      - name: Deploy Frontend
-        run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.FRONTEND_EC2_IP }} << 'EOF'
-          cd /home/ubuntu/project
-          docker-compose down
-          docker-compose up -d --build frontend
-          EOF
+      - name: SSH to EC2 and deploy
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.TEST_EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker-compose down
+            docker-compose up -d frontend

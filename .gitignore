@@ -23,5 +23,6 @@ out/
 ### Credential Files ###
 credentials/
 
-### MySQL Dev ###
+### SQL Dev ###
 mysql-data/
+postgres-data/
